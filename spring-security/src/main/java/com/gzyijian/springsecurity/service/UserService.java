@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository dao;
+    private UserRepository dao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,6 +26,8 @@ public class UserService implements UserDetailsService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("未查询到用户" + username + "信息");
         }
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userEntity;
     }
+
 }

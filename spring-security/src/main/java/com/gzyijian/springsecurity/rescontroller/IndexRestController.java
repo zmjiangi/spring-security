@@ -1,6 +1,5 @@
 package com.gzyijian.springsecurity.rescontroller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -8,10 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class IndexRestController {
-
-    @GetMapping("/index")
-    public String index() {
-        return "access index success";
-    }
 
 }

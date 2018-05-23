@@ -14,4 +14,19 @@ public class IndexController {
         return "login";
     }
 
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/index";
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "/index";
+    }
+
 }
