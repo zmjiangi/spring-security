@@ -1,6 +1,5 @@
 package com.gzyijian.springsecurity.model;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +38,7 @@ public class UserEntity implements Serializable, UserDetails {
         List<GrantedAuthority> grantedAuthoritieList = new ArrayList<>();
         List<RoleEntity> roleEntityList = getRoles();
         for (RoleEntity roleEntity : roleEntityList) {
-            grantedAuthoritieList.add(new SimpleGrantedAuthority(roleEntity.getName()));
+            grantedAuthoritieList.add(new SimpleGrantedAuthority(roleEntity.getFlag()));
         }
         return grantedAuthoritieList;
     }

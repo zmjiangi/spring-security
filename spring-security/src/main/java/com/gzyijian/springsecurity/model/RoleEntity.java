@@ -18,6 +18,8 @@ public class RoleEntity implements Serializable {
     private Long id;
     @Column(name = "r_name")
     private String name;
+    @Column(name = "r_flag")
+    private String flag;
 
     public Long getId() {
         return id;
@@ -33,5 +35,13 @@ public class RoleEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }
