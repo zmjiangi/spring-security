@@ -14,31 +14,32 @@ import java.util.List;
  * Created by zmjiangi on 2018-5-11.
  */
 @Entity
-@Table(name = "users")
-public class UserEntity implements Serializable, UserDetails {
+@Table(name = "user")
+public class User implements UserDetails, Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "u_id")
+    @Column(name = "id")
     private Long id;
-    @Column(name = "u_username")
+    @Column(name = "username")
     private String username;
-    @Column(name = "u_password")
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_roles",
-            joinColumns = {@JoinColumn(name = "ur_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "ur_role_id")}
+            name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
-    private List<RoleEntity> roles;
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthoritieList = new ArrayList<>();
-        List<RoleEntity> roleEntityList = getRoles();
-        for (RoleEntity roleEntity : roleEntityList) {
-            grantedAuthoritieList.add(new SimpleGrantedAuthority(roleEntity.getFlag()));
+        List<Role> roleList = getRoles();
+        for (Role role : roleList) {
+            grantedAuthoritieList.add(new SimpleGrantedAuthority(role.getFlag()));
         }
         return grantedAuthoritieList;
     }
@@ -59,11 +60,11 @@ public class UserEntity implements Serializable, UserDetails {
         this.password = password;
     }
 
-    public List<RoleEntity> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleEntity> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

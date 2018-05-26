@@ -10,15 +10,16 @@ import java.io.Serializable;
  * Created by zmjiangi on 2018-5-11.
  */
 @Entity
-@Table(name = "roles")
-public class RoleEntity implements Serializable {
+@Table(name = "role")
+public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "r_id")
+    @Column(name = "id")
     private Long id;
-    @Column(name = "r_name")
+    @Column(name = "name")
     private String name;
-    @Column(name = "r_flag")
+    @Column(name = "flag")
     private String flag;
 
     public Long getId() {

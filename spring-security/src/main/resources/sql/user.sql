@@ -11,26 +11,26 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 12/05/2018 09:52:53
+ Date: 25/05/2018 10:03:42
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for users
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users`  (
-  `u_id` int(11) NOT NULL,
-  `u_username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `u_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`u_id`) USING BTREE
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of users
+-- Records of user
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '123456');
+INSERT INTO `user` VALUES (1, 'admin', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;
