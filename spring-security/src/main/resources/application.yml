@@ -14,5 +14,7 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  session:
+    store-type: none
 server:
   port: 8899
