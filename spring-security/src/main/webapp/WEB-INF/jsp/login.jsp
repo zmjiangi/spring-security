@@ -12,7 +12,7 @@
 
        <img src="/api/validateCode" alt="验证码"/><br/><br/>
    --%>
-    <input type="text" name="smsCode"><br/><br/>
+    验证码：<input type="text" name="smsCode">
     <a href="/api/smsCode">发送验证码</a><br/><br/>
     <input type="checkbox" name="remember-me" value="true"/>记住我
     <input type="submit" value="登录"/>
