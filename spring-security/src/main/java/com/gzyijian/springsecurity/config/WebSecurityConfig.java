@@ -1,5 +1,6 @@
 package com.gzyijian.springsecurity.config;
 
+import com.gzyijian.springsecurity.filter.SmsCodeFilter;
 import com.gzyijian.springsecurity.filter.ValidateCodeFilter;
 import com.gzyijian.springsecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
+    @Autowired
+    private SmsCodeFilter smsCodeFilter;
 
 
     @Bean
@@ -41,12 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/logout", "/api/validateCode")
+                .antMatchers("/login", "/logout", "/api/validateCode","/api/smsCode")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error")

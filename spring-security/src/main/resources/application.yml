@@ -17,4 +17,4 @@ spring:
   session:
     store-type: none
 server:
-  port: 8899
+  port: 8090

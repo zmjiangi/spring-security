@@ -2,7 +2,8 @@ package com.gzyijian.springsecurity.filter;
 
 import com.gzyijian.springsecurity.authentication.AuthenticationFailureHandler;
 import com.gzyijian.springsecurity.exception.ValidateCodeException;
-import com.gzyijian.springsecurity.model.ImageCode;
+import com.gzyijian.springsecurity.model.SmsCode;
+import com.gzyijian.springsecurity.rescontroller.SmsCodeRestController;
 import com.gzyijian.springsecurity.rescontroller.ValidateCodeRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,11 @@ import static org.springframework.util.StringUtils.isEmpty;
 import static org.springframework.web.bind.ServletRequestUtils.getStringParameter;
 
 /**
- * Created by zmjiangi on 2018-5-25.
+ * Created by zmjiangi on 2018-5-28.
  */
 @Component
-public class ValidateCodeFilter extends OncePerRequestFilter {
-    private Logger LOGGER = LoggerFactory.getLogger(getClass());
+public class SmsCodeFilter extends OncePerRequestFilter {
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
@@ -44,7 +45,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         if ("/login".equals(requestURI) && "post".equalsIgnoreCase(method)) {
             try {
                 this.validate(new ServletWebRequest(request));
-                LOGGER.info("验证码校验通过");
+                LOGGER.info("短信验证码校验通过");
             } catch (ValidateCodeException e) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
@@ -54,18 +55,17 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     }
 
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(
+        SmsCode codeInSession = (SmsCode) sessionStrategy.getAttribute(
                 request,
-                ValidateCodeRestController.SESSION_KEY
+                SmsCodeRestController.SESSION_KEY
         );
-        String codeInRequest = getStringParameter(request.getRequest(), "imageCode");
+        String codeInRequest = getStringParameter(request.getRequest(), "smsCode");
         if (isEmpty(codeInRequest)) {
             throw new ValidateCodeException("验证码不能为空");
         }
         if (codeInSession == null) {
             throw new ValidateCodeException("验证码不存在");
         }
-
         if (codeInSession.isExpired()) {
             sessionStrategy.removeAttribute(request, ValidateCodeRestController.SESSION_KEY);
             throw new ValidateCodeException("验证码已过期");
@@ -74,7 +74,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         if (!codeInSession.getCode().equalsIgnoreCase(codeInRequest)) {
             throw new ValidateCodeException("验证码不匹配");
         }
-        sessionStrategy.removeAttribute(request, ValidateCodeRestController.SESSION_KEY);
+        sessionStrategy.removeAttribute(request, SmsCodeRestController.SESSION_KEY);
     }
-
 }
