@@ -1,10 +1,9 @@
 package com.gzyijian.springsecurity.filter;
 
 import com.gzyijian.springsecurity.authentication.AuthenticationFailureHandler;
-import com.gzyijian.springsecurity.exception.ValidateCodeException;
+import com.gzyijian.springsecurity.exception.SmsCodeException;
 import com.gzyijian.springsecurity.model.SmsCode;
 import com.gzyijian.springsecurity.rescontroller.SmsCodeRestController;
-import com.gzyijian.springsecurity.rescontroller.ValidateCodeRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class SmsCodeFilter extends OncePerRequestFilter {
             try {
                 this.validate(new ServletWebRequest(request));
                 LOGGER.info("短信验证码校验通过");
-            } catch (ValidateCodeException e) {
+            } catch (SmsCodeException e) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }
@@ -61,18 +60,18 @@ public class SmsCodeFilter extends OncePerRequestFilter {
         );
         String codeInRequest = getStringParameter(request.getRequest(), "smsCode");
         if (isEmpty(codeInRequest)) {
-            throw new ValidateCodeException("验证码不能为空");
+            throw new SmsCodeException("验证码不能为空");
         }
         if (codeInSession == null) {
-            throw new ValidateCodeException("验证码不存在");
+            throw new SmsCodeException("验证码不存在");
         }
         if (codeInSession.isExpired()) {
-            sessionStrategy.removeAttribute(request, ValidateCodeRestController.SESSION_KEY);
-            throw new ValidateCodeException("验证码已过期");
+            sessionStrategy.removeAttribute(request, SmsCodeRestController.SESSION_KEY);
+            throw new SmsCodeException("验证码已过期");
         }
 
         if (!codeInSession.getCode().equalsIgnoreCase(codeInRequest)) {
-            throw new ValidateCodeException("验证码不匹配");
+            throw new SmsCodeException("验证码不匹配");
         }
         sessionStrategy.removeAttribute(request, SmsCodeRestController.SESSION_KEY);
     }
