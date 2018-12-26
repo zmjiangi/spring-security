@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Created by zmjiangi on 2018-5-28.
+ * @author zmjiangi
+ * @date 2018-5-28
  */
 public class SmsCode implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -15,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by zmjiangi on 2018-5-26.
+ * @author zmjiangi
+ * @date 2018-5-26
  */
 @Component("authenticationFailureHandler")
 public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    private Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFailureHandler.class);
 
     @Autowired
     private ObjectMapper objectMapper;

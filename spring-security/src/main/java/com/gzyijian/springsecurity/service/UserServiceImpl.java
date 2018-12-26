@@ -10,10 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by zmjiangi on 2018-5-11.
+ * @author zmjiangi
+ * @date 2018-5-11
  */
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository dao;

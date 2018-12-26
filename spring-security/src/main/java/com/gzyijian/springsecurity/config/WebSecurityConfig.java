@@ -2,7 +2,7 @@ package com.gzyijian.springsecurity.config;
 
 import com.gzyijian.springsecurity.filter.SmsCodeFilter;
 import com.gzyijian.springsecurity.filter.ValidateCodeFilter;
-import com.gzyijian.springsecurity.service.UserService;
+import com.gzyijian.springsecurity.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import javax.sql.DataSource;
 
 /**
- * Created by zmjiangi on 2018-5-11.
+ * @author zmjiangi
+ * @date 2018-5-11
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
     @Autowired
@@ -34,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
-//        jdbcTokenRepository.setCreateTableOnStartup(true);
+///        jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 
@@ -44,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/logout", "/api/validateCode","/api/smsCode")
+                .antMatchers("/login", "/logout", "/api/validateCode", "/api/smsCode")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

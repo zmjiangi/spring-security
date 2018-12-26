@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * Created by zmjiangi on 2018-5-25.
+ * @author zmjiangi
+ * @date 2018-5-25
  */
 @RestController
 public class ValidateCodeRestController {

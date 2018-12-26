@@ -11,7 +11,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by zmjiangi on 2018-5-11.
+ * @author zmjiangi
+ * @date 2018-5-11
  */
 @Entity
 @Table(name = "user")

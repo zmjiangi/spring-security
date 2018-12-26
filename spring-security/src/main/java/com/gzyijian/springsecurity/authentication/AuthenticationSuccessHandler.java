@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by zmjiangi on 2018-5-26.
+ * @author zmjiangi
+ * @date 2018-5-26
  */
 @Component("authenticationSuccessHandler")
 public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-    private Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationSuccessHandler.class);
+
     @Autowired
     private ObjectMapper objectMapper;
 

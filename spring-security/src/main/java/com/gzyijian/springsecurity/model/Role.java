@@ -7,7 +7,8 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by zmjiangi on 2018-5-11.
+ * @author zmjiangi
+ * @date 2018-5-11
  */
 @Entity
 @Table(name = "role")

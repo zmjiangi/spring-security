@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author zmjiangi
+ * @date 2018-12-26
+ */
 @SpringBootApplication
 public class SpringSecurityApplication {
 

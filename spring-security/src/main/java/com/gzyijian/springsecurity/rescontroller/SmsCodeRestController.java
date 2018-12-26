@@ -13,11 +13,12 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by zmjiangi on 2018-5-28.
+ * @author zmjiangi
+ * @date 2018-5-28
  */
 @RestController
 public class SmsCodeRestController {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmsCodeRestController.class);
     public static final String SESSION_KEY = "SESSION_KEY_SMS";
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 

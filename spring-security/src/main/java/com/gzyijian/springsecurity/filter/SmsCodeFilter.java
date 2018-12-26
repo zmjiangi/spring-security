@@ -1,6 +1,7 @@
 package com.gzyijian.springsecurity.filter;
 
 import com.gzyijian.springsecurity.authentication.AuthenticationFailureHandler;
+import com.gzyijian.springsecurity.constant.FilterConstant;
 import com.gzyijian.springsecurity.exception.SmsCodeException;
 import com.gzyijian.springsecurity.model.SmsCode;
 import com.gzyijian.springsecurity.rescontroller.SmsCodeRestController;
@@ -24,12 +25,15 @@ import static org.springframework.util.StringUtils.isEmpty;
 import static org.springframework.web.bind.ServletRequestUtils.getStringParameter;
 
 /**
- * Created by zmjiangi on 2018-5-28.
+ * @author zmjiangi
+ * @date 2018-5-28
  */
 @Component
 public class SmsCodeFilter extends OncePerRequestFilter {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmsCodeFilter.class);
+
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
@@ -41,7 +45,7 @@ public class SmsCodeFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         String method = request.getMethod();
-        if ("/login".equals(requestURI) && "post".equalsIgnoreCase(method)) {
+        if (FilterConstant.LOGIN_URI.equals(requestURI) && FilterConstant.POST_METHOD.equalsIgnoreCase(method)) {
             try {
                 this.validate(new ServletWebRequest(request));
                 LOGGER.info("短信验证码校验通过");
